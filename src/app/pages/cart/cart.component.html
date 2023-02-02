@@ -91,7 +91,8 @@
                 *matHeaderCellDef>
                 <button mat-raised-button
                         color="warn"
-                        class="float-right">
+                        class="float-right"
+                        (click)="onClearCart()">
                     Clear All
                 </button>
             </th>
@@ -99,7 +100,8 @@
                 *matCellDef="let element">
                 <button mat-mini-fab
                         color="warn"
-                        class="float-right">
+                        class="float-right"
+                        (click)="onRemoveFromCart(element)">
                     <mat-icon>close</mat-icon>
                 </button>
             </td>
