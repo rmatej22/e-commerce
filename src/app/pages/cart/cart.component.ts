@@ -18,8 +18,8 @@ export class CartComponent implements OnInit {
       },
     ],
   };
-  dataSource: Array<CartItem> = [];
-  displayedColumns: Array<string> = [
+  dataSource: CartItem[] = [];
+  displayedColumns: string[] = [
     "product",
     "name",
     "price",
@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
     this.dataSource = this.cart.items;
   }
 
-  getTotal(items: Array<CartItem>): number {
+  getTotal(items: CartItem[]): number {
     return this.cartService.getTotal(items);
   }
 }
