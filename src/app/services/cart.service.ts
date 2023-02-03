@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject } from "rxjs";
@@ -9,7 +10,7 @@ import { Cart, CartItem } from "../models/cart";
 export class CartService {
   cart = new BehaviorSubject<Cart>({ items: [] });
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
   addToCart(item: CartItem): void {
     const items = [...this.cart.value.items];
@@ -77,6 +78,12 @@ export class CartService {
 
     this._snackBar.open("1 item removed from cart.", "Ok", {
       duration: 3000,
+    });
+  }
+
+  onCheckout(items: CartItem[]) {
+    return this.http.post("http://localhost:4242/checkout", {
+      items,
     });
   }
 }
