@@ -37,7 +37,7 @@ import { HttpClientModule } from "@angular/common/http";
     CartComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
