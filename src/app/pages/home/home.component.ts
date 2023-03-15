@@ -12,6 +12,7 @@ const ROWS_HEGHT: { [id: number]: number } = {
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
   cols: number = 3;
