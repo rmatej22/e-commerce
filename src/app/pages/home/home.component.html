@@ -7,21 +7,27 @@
         </app-filters>
     </mat-drawer>
     <mat-drawer-content class="p-6">
-        <app-products-header 
-        (itemsCountChange)="onItemsCountChange($event)"
-        (sortChange)="onSortChange($event)"
-        (columnsCountChange)="onColumnsChange($event)">
-        </app-products-header>
-        <mat-grid-list gutterSize="16"
-                       [cols]="cols"
-                       [rowHeight]="rowHeight">
-            <mat-grid-tile *ngFor="let product of products">
-                <app-product-box class="w-full"
-                                 [product]="product"
-                                 (addToCart)="onAddToCart($event)"
-                                 [fullWidthMode]="cols === 1">
-                </app-product-box>
-            </mat-grid-tile>
-        </mat-grid-list>
+        <ng-container *appShellNoRender>
+            <app-products-header (itemsCountChange)="onItemsCountChange($event)"
+                                 (sortChange)="onSortChange($event)"
+                                 (columnsCountChange)="onColumnsChange($event)">
+            </app-products-header>
+            <mat-grid-list gutterSize="16"
+                           [cols]="cols"
+                           [rowHeight]="rowHeight">
+                <mat-grid-tile *ngFor="let product of products">
+                    <app-product-box class="w-full"
+                                     [product]="product"
+                                     (addToCart)="onAddToCart($event)"
+                                     [fullWidthMode]="cols === 1">
+                    </app-product-box>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </ng-container>
+        <!-- render spinner only if app is server side rendered -->
+        <div class="spinner-container"
+             *appShellRender>
+            <mat-spinner></mat-spinner>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
