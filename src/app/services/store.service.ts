@@ -7,6 +7,7 @@ import { Product } from "../models/product";
 
 const STORE_BASE_URL = "https://fakestoreapi.com";
 
+// transferState keys
 const PRODUCTS_KEY = makeStateKey<Product[]>("products");
 const CATEGORIES_KEY = makeStateKey<string[]>("categories");
 
@@ -25,11 +26,33 @@ export class StoreService {
     sort = "desc",
     category?: string
   ): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${STORE_BASE_URL}/products${
-        category ? "/category/" + category : ""
-      }?sort=${sort}&limit=${limit}`
-    );
+    if (!!category) {
+      return this.http.get<Product[]>(
+        `${STORE_BASE_URL}/products${
+          category ? "/category/" + category : ""
+        }?sort=${sort}&limit=${limit}`
+      );
+    } else {
+      if (this.transferState.hasKey(PRODUCTS_KEY)) {
+        const products = this.transferState.get(PRODUCTS_KEY, null as any);
+        this.transferState.remove(PRODUCTS_KEY);
+        return of(products);
+      } else {
+        return this.http
+          .get<Product[]>(
+            `${STORE_BASE_URL}/products${
+              category ? "/category/" + category : ""
+            }?sort=${sort}&limit=${limit}`
+          )
+          .pipe(
+            tap((products) => {
+              if (isPlatformServer(this.platformId)) {
+                this.transferState.set(PRODUCTS_KEY, products);
+              }
+            })
+          );
+      }
+    }
   }
 
   getAllCategories(): Observable<string[]> {
