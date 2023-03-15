@@ -14,6 +14,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTableModule } from "@angular/material/table";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -25,6 +26,8 @@ import { FiltersComponent } from "./pages/home/components/filters/filters.compon
 import { ProductBoxComponent } from "./pages/home/components/product-box/product-box.component";
 import { CartComponent } from "./pages/cart/cart.component";
 import { HttpClientModule } from "@angular/common/http";
+import { AppShellNoRenderDirective } from "./shared/directives/app-shell-no-render.directive";
+import { AppShellRenderDirective } from "./shared/directives/app-shell-render.directive";
 
 @NgModule({
   declarations: [
@@ -35,9 +38,11 @@ import { HttpClientModule } from "@angular/common/http";
     FiltersComponent,
     ProductBoxComponent,
     CartComponent,
+    AppShellRenderDirective,
+    AppShellNoRenderDirective,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: "serverApp" }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -54,6 +59,7 @@ import { HttpClientModule } from "@angular/common/http";
     MatBadgeModule,
     MatSnackBarModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
